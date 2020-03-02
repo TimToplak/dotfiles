@@ -9,7 +9,7 @@
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp\nmap S goBack",
   "linkHintCharacters": "qwerasdfyxcvtg",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
