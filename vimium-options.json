@@ -9,7 +9,7 @@
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp\nmap S goBack\nmap q duplicateTab\nmap w moveTabLeft\nmap e moveTabRight",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap e scrollPageUp\nmap S goBack\nmap q duplicateTab\nmap 2 moveTabLeft\nmap 3 moveTabRight",
   "linkHintCharacters": "qwerasdfyxcvtg",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
