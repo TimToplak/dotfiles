@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": true,
+  "editor.renderWhitespace": "none",
+  "editor.renderControlCharacters": false,
+  "breadcrumbs.enabled": false,
+  "workbench.colorTheme": "Material Theme Palenight High Contrast",
+  "window.zoomLevel": 0,
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-c>": false,
+    "<C-v>": false,
+    "<C-x>": false,
+    "<C-f>": false
+  }
+}
