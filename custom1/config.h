@@ -27,3 +27,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Rows are doubled-up
 
 #define UNICODE_SELECTED_MODES UC_WINC
+
+#define UNICODE_KEY_WINC KC_RCTL
