@@ -24,15 +24,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case ZCARON: {
 			if (record->event.pressed) {
 				if (shift_held) {
-					unregister_code(KC_LSFT);
-					send_unicode_string("Ž");
-
+					// send_unicode_string("Ž");
+					send_unicode_hex_string("17D");
 				} else {
-					register_code(KC_LSFT);
-					send_unicode_string("ž");
+					// send_unicode_string("ž");
+					send_unicode_hex_string("17E");
 				}
-			} else { // Release the key
-				unregister_code(KC_LSFT);
 			}
 			return false;
 			break;
@@ -40,15 +37,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case CCARON: {
 			if (record->event.pressed) {
 				if (shift_held) {
-					unregister_code(KC_LSFT);
-					send_unicode_string("Č");
+					// send_unicode_string("Č");
+					send_unicode_hex_string("10C");
 
 				} else {
-					register_code(KC_LSFT);
-					send_unicode_string("č");
+					// send_unicode_string("č");
+					send_unicode_hex_string("10D");
 				}
-			} else { // Release the key
-				unregister_code(KC_LSFT);
 			}
 			return false;
 			break;
@@ -56,15 +51,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case SCARON: {
 			if (record->event.pressed) {
 				if (shift_held) {
-					unregister_code(KC_LSFT);
-					send_unicode_string("Š");
-
+					// send_unicode_string("Š");
+					send_unicode_hex_string("160");
 				} else {
-					register_code(KC_LSFT);
-					send_unicode_string("š");
+					// send_unicode_string("š");
+					send_unicode_hex_string("161");
 				}
-			} else { // Release the key
-				unregister_code(KC_LSFT);
 			}
 			return false;
 			break;
