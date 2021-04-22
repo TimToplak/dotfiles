@@ -8,6 +8,14 @@ enum custom_keycodes {
 };
 
 static bool shift_held = false;
+// winCompose config:
+// <Multi_key> <s> : "š"
+// <Multi_key> <n> : "č"
+// <Multi_key> <z> : "ž"
+
+// <Multi_key> <S> : "Š"
+// <Multi_key> <N> : "Č"
+// <Multi_key> <Z> : "Ž"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch(keycode) {
@@ -25,10 +33,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
 				if (shift_held) {
 					// send_unicode_string("Ž");
-					send_unicode_hex_string("17D");
+					// send_unicode_hex_string("17D");
+					SEND_STRING(SS_DOWN(X_RCTL)"Z"SS_UP(X_RCTL));
 				} else {
 					// send_unicode_string("ž");
-					send_unicode_hex_string("17E");
+					// send_unicode_hex_string("17E");
+					SEND_STRING(SS_DOWN(X_RCTL)"z"SS_UP(X_RCTL));
 				}
 			}
 			return false;
@@ -38,11 +48,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
 				if (shift_held) {
 					// send_unicode_string("Č");
-					send_unicode_hex_string("10C");
+					// send_unicode_hex_string("10C");
+					SEND_STRING(SS_DOWN(X_RCTL)"N"SS_UP(X_RCTL));
 
 				} else {
 					// send_unicode_string("č");
-					send_unicode_hex_string("10D");
+					// send_unicode_hex_string("10D");
+					SEND_STRING(SS_DOWN(X_RCTL)"n"SS_UP(X_RCTL));
 				}
 			}
 			return false;
@@ -52,10 +64,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
 				if (shift_held) {
 					// send_unicode_string("Š");
-					send_unicode_hex_string("160");
+					// send_unicode_hex_string("160");
+					SEND_STRING(SS_DOWN(X_RCTL)"S"SS_UP(X_RCTL));
 				} else {
 					// send_unicode_string("š");
-					send_unicode_hex_string("161");
+					// send_unicode_hex_string("161");
+					SEND_STRING(SS_DOWN(X_RCTL)"s"SS_UP(X_RCTL));
 				}
 			}
 			return false;
