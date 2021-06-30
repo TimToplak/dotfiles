@@ -4,3 +4,4 @@
 document.getElementById("masthead-container").remove()
 document.querySelector("ytd-page-manager").setAttribute("style", "margin-top:0");
 document.querySelector("#page-manager.ytd-app").setAttribute("style", "margin-top:0");
+document.querySelector("#chips-wrapper").setAttribute("style", "top:0");
