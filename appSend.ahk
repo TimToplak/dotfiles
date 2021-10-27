@@ -16,8 +16,8 @@
 getSoftwareHwnd(processExe) {
 	WinGet, softwareHwnd, ID, ahk_exe %processExe%
 	; We need the app's third top level window, so get next twice.
-	softwareHwnd := DllCall("GetWindow", "uint", softwareHwnd, "uint", 2)
-	softwareHwnd := DllCall("GetWindow", "uint", softwareHwnd, "uint", 2)
+	; softwareHwnd := DllCall("GetWindow", "uint", softwareHwnd, "uint", 2)
+	; softwareHwnd := DllCall("GetWindow", "uint", softwareHwnd, "uint", 2)
 	Return softwareHwnd
 }
 
