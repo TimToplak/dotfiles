@@ -36,14 +36,32 @@ sendKeyToSoftware(processExe, key, method) {
 	Return
 }
 
+volume(type) {
+	processName := "spotify.exe"
+	WinGetTitle, winname, ahk_exe %processName%
+	if (type == "up"){
+		if (winname == "Spotify Premium" ) {
+			sendKeyToSoftware("msedge.exe", "{Up}", "ControlSend")
+		} else {
+			sendKeyToSoftware("spotify.exe", "^{Up}", "ControlSend")
+		}
+	}
 
-#!p::			sendKeyToSoftware("spotify.exe", "{Space}", "PostMessage") 		; Spotify: Play/Pause
-#!Down::		sendKeyToSoftware("spotify.exe", "^{Right}", "PostMessage") 	; Spotify: Next
-#!Up::			sendKeyToSoftware("spotify.exe", "^{Left}", "PostMessage") 		; Spotify: Previous
-#!Right::		sendKeyToSoftware("spotify.exe", "+{Right}", "PostMessage") 	; Spotify: Seek forward
-#!Left::		sendKeyToSoftware("spotify.exe", "+{Left}", "PostMessage") 		; Spotify: Seek backward
-F14::	sendKeyToSoftware("spotify.exe", "^{Up}", "ControlSend") 		; Spotify: Volume up
-F15::	sendKeyToSoftware("spotify.exe", "^{Down}", "ControlSend") 		; Spotify: Volume down
+	if (type == "down"){
+		if (winname == "Spotify Premium" ) {
+			sendKeyToSoftware("msedge.exe", "{Down}", "ControlSend")
+		} else {
+			sendKeyToSoftware("spotify.exe", "^{Down}", "ControlSend")
+		}
+	}
+	Return
+}
+
+; F14::	sendKeyToSoftware("spotify.exe", "^{Up}", "ControlSend") 		; Spotify: Volume up
+; F15::	sendKeyToSoftware("spotify.exe", "^{Down}", "ControlSend") 		; Spotify: Volume down
+
+F14::	volume("up")
+F15::	volume("down")
 
 ; Win+alt+o: Show Spotify
 #!o::
