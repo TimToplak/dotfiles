@@ -21,9 +21,14 @@ getSoftwareHwnd(processExe) {
 	Return softwareHwnd
 }
 
+getSoftwareHwndAtCord(x, y) {
+	hWnd := DllCall("WindowFromPoint", "UInt64", x|(y << 32), "Ptr")    
+	Return hWnd
+}
+
+
 ; Send a key to a software.
-sendKeyToSoftware(processExe, key, method) {
-	softwareHwnd := getsoftwareHwnd(processExe)
+sendKeyToSoftware(softwareHwnd, key, method) {
 	if (method == "PostMessage" ) {
 		PostMessage, 0x319,, 0xE0000,, ahk_id %softwareHwnd%
 	}
@@ -41,17 +46,21 @@ volume(type) {
 	WinGetTitle, winname, ahk_exe %processName%
 	if (type == "up"){
 		if (winname == "Spotify Premium" ) {
-			sendKeyToSoftware("msedge.exe", "{Up}", "ControlSend")
+			softwareHwnd := getSoftwareHwndAtCord(1766, -1055)
+			sendKeyToSoftware(softwareHwnd, "{Up}", "ControlSend")
 		} else {
-			sendKeyToSoftware("spotify.exe", "^{Up}", "ControlSend")
+			softwareHwnd := getsoftwareHwnd("spotify.exe")
+			sendKeyToSoftware(softwareHwnd, "^{Up}", "ControlSend")
 		}
 	}
 
 	if (type == "down"){
 		if (winname == "Spotify Premium" ) {
-			sendKeyToSoftware("msedge.exe", "{Down}", "ControlSend")
+			softwareHwnd := getSoftwareHwndAtCord(1766, -1055)
+			sendKeyToSoftware(softwareHwnd, "{Down}", "ControlSend")
 		} else {
-			sendKeyToSoftware("spotify.exe", "^{Down}", "ControlSend")
+			softwareHwnd := getsoftwareHwnd("spotify.exe")
+			sendKeyToSoftware(softwareHwnd, "^{Down}", "ControlSend")
 		}
 	}
 	Return
