@@ -15,25 +15,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #pragma once
-
 
 #define USE_SERIAL
 
 #define MASTER_LEFT
 // #define MASTER_RIGHT
-//#define EE_HANDS
+// #define EE_HANDS
 // Rows are doubled-up
 
-#define UNICODE_SELECTED_MODES UC_WINC
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
 
 #define UNICODE_KEY_WINC KC_RCTL
 
-#define ENCODERS_PAD_A { F4 }
-#define ENCODERS_PAD_B { F5 }
+#define ENCODERS_PAD_A \
+    { F4 }
+#define ENCODERS_PAD_B \
+    { F5 }
 #define ENCODER_RESOLUTION 4
-
-#undef RGBLED_NUM
-#define RGBLED_NUM 14
-#define RGBLIGHT_SLEEP
+#define COMBO_COUNT 1

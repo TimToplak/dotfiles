@@ -5,6 +5,11 @@ enum custom_keycodes {
 	ZCARON,
 	SCARON,
 	THUMB_UP,
+	RUNNER,
+	HIDE,
+	SLEEP1,
+    SLEEP2,
+	EMOJI
 };
 
 static bool shift_held = false;
@@ -25,6 +30,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 			break;
+		case RUNNER:
+			if (record->event.pressed) {
+				SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_SPC)SS_UP(X_SPC)SS_UP(X_LALT));
+			}
+			return false;
+			break;
+		case HIDE:
+			if (record->event.pressed) {
+				SEND_STRING(SS_DOWN(X_LGUI)"n"SS_UP(X_LGUI));
+			}
+			return false;
+			break;
+		case EMOJI:
+			if (record->event.pressed) {
+				SEND_STRING(SS_DOWN(X_LGUI)"."SS_UP(X_LGUI));
+			}
+			return false;
+			break;
 		case KC_LSFT:
 			shift_held = record->event.pressed;
 			return true;
@@ -36,7 +59,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					// send_unicode_hex_string("17D");
 					SEND_STRING(SS_DOWN(X_RCTL)"Z"SS_UP(X_RCTL));
 				} else {
-					// send_unicode_string("ž");
+					// send_unicode_string("ž"); 
 					// send_unicode_hex_string("17E");
 					SEND_STRING(SS_DOWN(X_RCTL)"z"SS_UP(X_RCTL));
 				}
@@ -83,11 +106,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
 		switch(biton32(layer_state)){
-			case 2:
+			case 1:
 				if (clockwise){
                     tap_code(KC_VOLU);
                 } else{
                     tap_code(KC_VOLD);
+                }
+				break;
+			case 2:
+				if (clockwise){
+                    tap_code(KC_F17);
+                } else{
+                    tap_code(KC_F18);
                 }
 				break;
 			default:
@@ -99,26 +129,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
 			}
 		
-    } else if (index == 1) { /* Second encoder */
-		switch(biton32(layer_state)){
-			case 1:
-				if (clockwise){
-                    tap_code(KC_WH_L);
-                } else{
-                    tap_code(KC_WH_R);
-                }
-				break;
-			default:
-                if (clockwise){
-                    tap_code(KC_WH_D);
-                } else{
-                    tap_code(KC_WH_U);
-                }
-                break;
-			}
     }
     return true;
 }
+
+enum combos {
+  A_B_C_ESC,
+};
+
+const uint16_t PROGMEM a_b_c_esc[] = { SLEEP1, SLEEP2, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [A_B_C_ESC] = COMBO(a_b_c_esc, KC_SLEP),
+
+};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -126,26 +150,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 					 KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, 		KC_Z, KC_U, KC_I, KC_O, KC_P, KC_QUOT,
 					 KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, 	KC_H, KC_J, KC_K, KC_L, KC_ENT, KC_SCLN,
 					 KC_LCTL, KC_Y, KC_X, KC_C, KC_V, KC_B, 	KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
-						KC_LGUI, KC_LALT, 										KC_EQL, KC_MINS, 
-							MO(2), KC_SPC, 									KC_BSPC, MO(1), 
-								KC_LALT, KC_MUTE, 						_______, KC_F13, 
-									_______, KC_LGUI, 			KC_GRV, _______),
+						TG(3), KC_MUTE, 										KC_EQL, KC_MINS, 
+							MO(2), _______, 								KC_BSPC, MO(1), 
+								KC_LALT, KC_SPC, 						HIDE, EMOJI, 
+									_______, KC_LGUI, 			RUNNER, _______),
 					 
 	[1] = LAYOUT_5x6(KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, 	 	KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
 					 _______, _______, _______, KC_LCBR, KC_RCBR, KC_GRV, 		ZCARON, KC_HOME, KC_UP, KC_END, _______, KC_PLUS,
 					 _______, _______, _______, KC_LPRN, KC_RPRN, UC(0x20AC), 	SCARON, KC_LEFT, KC_DOWN, KC_RGHT, KC_MINS, KC_PIPE,
 					 _______, _______, _______, KC_LBRC, KC_RBRC, _______, 		CCARON, _______, _______, _______, KC_EQL, KC_UNDS,
-					 	_______, _______, 																	_______, KC_P0,
+					 	_______, _______, 																	SLEEP1, SLEEP2,
 					 		_______, _______,														 _______, _______,
-					 			_______, _______,												 _______, _______,
+					 			_______, _______,												 _______, KC_F16,
 					 				_______, _______,									 _______, _______),
 
-	[2] = LAYOUT_5x6(KC_F12, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,		 			 KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-					 _______, _______, KC_WH_D, KC_MS_U, KC_WH_U, KC_LBRC,		 _______, KC_7, KC_8, KC_9, KC_SLCK, _______,
+	[2] = LAYOUT_5x6(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,		 			 KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,
+					 _______, _______, KC_WH_D, KC_MS_U, KC_WH_U, KC_LBRC,		 _______, KC_7, KC_8, KC_9, _______, _______,
 					 _______, KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN2,		 _______, KC_4, KC_5, KC_6, _______, _______,
 					 _______, _______, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, 		 _______, KC_1, KC_2, KC_3, _______, _______,
 					 	KC_MPRV, KC_MNXT,														 KC_0, THUMB_UP, 
 							_______, _______,											 _______, _______,
 								_______, _______, 									_______, _______,
-									_______, _______,							 _______, _______)
+									_______, _______,							 _______, _______),
+	[3] = LAYOUT_5x6(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, 		KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL,
+					 KC_TAB, _______, KC_Q, KC_W, KC_E, KC_R, 		KC_Z, KC_U, KC_I, KC_O, KC_P, KC_QUOT,
+					 KC_LSFT, _______, KC_A, KC_S, KC_D, KC_F, 	KC_H, KC_J, KC_K, KC_L, KC_ENT, KC_SCLN,
+					 KC_LCTL, _______, KC_Y, KC_C, KC_V, KC_B, 	KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
+						_______, KC_MUTE, 										KC_EQL, KC_MINS, 
+							MO(2), _______, 								KC_BSPC, MO(1), 
+								KC_LALT, KC_SPC, 						RUNNER, _______, 
+									_______, KC_LGUI, 			HIDE, _______),
 };
